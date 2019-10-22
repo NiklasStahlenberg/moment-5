@@ -3,13 +3,11 @@
 
 class Course{ 
     
-    //database connection variables
-    private $database;
+    //database connection variables    
     private $connection;
 
-    public function __construct(){
-        $database = new Database();
-        $this->connection = $database->getConnection();
+    public function __construct($connection){      
+        $this->connection = $connection;
     }
 
 
@@ -34,8 +32,19 @@ class Course{
     }
 
     //Add a course to database
-    public function addCourse(){
+    public function addCourse($coursecode, $coursename, $progression, $courseinfo){
         
+        $sql = "INSERT INTO courses (coursecode, coursename, progression, courseinfo) 
+                VALUES('$coursecode', '$coursename', '$progression', '$courseinfo')";
+        $result = $this->connection->query($sql);
+
+        if($result){
+            $response = array('message' => 'course added!');  
+            return $response; 
+        }else{
+            $response = array('message' => 'error adding course');
+            return $response;
+        }
     }
 
     //delete a course from database
@@ -44,7 +53,7 @@ class Course{
     }
 
     //update a course in database
-    public function updateCourse($id){
+    public function updateCourse($id, $coursecode, $coursename, $progression, $courseinfo){
         
     }
 

@@ -7,12 +7,17 @@ header("Access-Control-Allow-Methods: POST, GET, DELETE,PUT");
 //includes
 include 'includes/Database.class.php';
 include 'includes/Course.class.php';
+$database = new Database;
+$connection = $database->getConnection();
 
 //variables
-$course = new Course();
+$response;
+$course = new Course($connection);
 $method = $_SERVER['REQUEST_METHOD'];
+$input = json_decode(file_get_contents('php://input'),true); 
 
 switch ($method){
+    //what happens on GET
     case "GET":
         $response = $course->getCourses();
         break;
@@ -20,7 +25,23 @@ switch ($method){
     case "PUT":
     break;
 
+    //what happens on POST
     case "POST":
+        //checks so the string are not empty
+        if(
+            !empty($input['coursecode']) && 
+            !empty($input['coursename']) &&
+            !empty($input['progression']) &&
+            !empty($input['courseinfo'])) {
+                //http response
+                http_response_code(201);
+                //add to database
+                $response = $course->addCourse($input['coursecode'], $input['coursename'], $input['progression'], $input['courseinfo']);
+            } else {
+                //http response
+                http_response_code(503);
+                $response = array("message" => "error creating course");
+            }
     break;
 
     case "DELETE":
