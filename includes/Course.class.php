@@ -49,7 +49,16 @@ class Course{
 
     //delete a course from database
     public function deleteCourse($id){
-        
+        $sql = "DELETE FROM courses WHERE id=$id";
+        $result = $this->connection->query($sql);
+
+        if($result){
+             $response = array('message' => 'course deleted');
+             return $response;
+        }else{
+            $response = array('message' => 'failed to delete course');
+            return $response;
+        }
     }
 
     //update a course in database

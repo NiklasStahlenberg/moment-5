@@ -28,8 +28,7 @@ switch ($method){
     //what happens on POST
     case "POST":
         //checks so the string are not empty
-        if(
-            !empty($input['coursecode']) && 
+        if( !empty($input['coursecode']) && 
             !empty($input['coursename']) &&
             !empty($input['progression']) &&
             !empty($input['courseinfo'])) {
@@ -45,6 +44,7 @@ switch ($method){
     break;
 
     case "DELETE":
+        $response = $course->deleteCourse($input['id']);        
     break;
 }
 
