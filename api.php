@@ -22,7 +22,22 @@ switch ($method){
         $response = $course->getCourses();
         break;
 
+    //update course    
     case "PUT":
+        if( !empty($input['coursecode']) && 
+            !empty($input['coursename']) &&
+            !empty($input['progression']) &&
+            !empty($input['courseinfo']) &&
+            !empty($input['id'])) {
+                //http response
+                http_response_code(201);
+                //add to database
+                $response = $course->updateCourse($input['id'], $input['coursecode'], $input['coursename'], $input['progression'], $input['courseinfo']);
+            } else {
+                //http response
+                http_response_code(503);
+                $response = array("message" => "Error updating course");
+            }
     break;
 
     //what happens on POST
@@ -39,7 +54,7 @@ switch ($method){
             } else {
                 //http response
                 http_response_code(503);
-                $response = array("message" => "error creating course");
+                $response = array("message" => "Error creating course");
             }
     break;
 

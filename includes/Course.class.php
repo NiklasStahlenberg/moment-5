@@ -39,7 +39,7 @@ class Course{
         $result = $this->connection->query($sql);
 
         if($result){
-            $response = array('message' => 'course added!');  
+            $response = array('message' => 'Course Added!');  
             return $response; 
         }else{
             $response = array('message' => 'error adding course');
@@ -53,17 +53,28 @@ class Course{
         $result = $this->connection->query($sql);
 
         if($result){
-             $response = array('message' => 'course deleted');
+             $response = array('message' => 'Course Deleted');
              return $response;
         }else{
-            $response = array('message' => 'failed to delete course');
+            $response = array('message' => 'Failed to delete course');
             return $response;
         }
     }
 
     //update a course in database
     public function updateCourse($id, $coursecode, $coursename, $progression, $courseinfo){
-        
+        $sql = "UPDATE courses 
+        SET coursecode='$coursecode', coursename='$coursename', progression='$progression', courseinfo='$courseinfo'
+        WHERE id=$id";
+        $result = $this->connection->query($sql);
+
+        if($result){
+            $response = array('message' => 'Course Updated!');
+            return $response;
+        }else{
+            $response = array('message' => 'Falied to update course');
+            return $response;
+        }
     }
 
 
