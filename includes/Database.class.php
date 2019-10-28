@@ -2,11 +2,12 @@
 
 class Database{
     //specify database variables
-    private $host = "localhost";
-    private $db_name = "course_database";
-    private $username = "course_database";
-    private $password = "password";
-    public $connection;  
+    private $host = "studentmysql.miun.se";
+    private $db_name = "nist1802";
+    private $username = "nist1802";
+    private $password = "5l2s0pna";
+    public $connection; 
+    
 
     //get database connection
     public function getConnection(){

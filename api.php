@@ -2,6 +2,7 @@
 //headers for the api
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Access-Control-Allow-Methods: POST, GET, DELETE,PUT");
 
 //includes
@@ -29,10 +30,17 @@ switch ($method){
             !empty($input['progression']) &&
             !empty($input['courseinfo']) &&
             !empty($input['id'])) {
+               
+                $coursecode = $input['coursecode'];
+                $coursename = $input['coursename'];
+                $progression = $input['progression'];
+                $courseinfo = $input['courseinfo'];
+                $id = $input['id'];
+
                 //http response
                 http_response_code(201);
                 //add to database
-                $response = $course->updateCourse($input['id'], $input['coursecode'], $input['coursename'], $input['progression'], $input['courseinfo']);
+                $response = $course->updateCourse($id, $coursecode, $coursename, $progression, $courseinfo);
             } else {
                 //http response
                 http_response_code(503);
@@ -47,10 +55,17 @@ switch ($method){
             !empty($input['coursename']) &&
             !empty($input['progression']) &&
             !empty($input['courseinfo'])) {
+
+                $coursecode = $input['coursecode'];
+                $coursename = $input['coursename'];
+                $progression = $input['progression'];
+                $courseinfo = $input['courseinfo'];
+
                 //http response
                 http_response_code(201);
+                
                 //add to database
-                $response = $course->addCourse($input['coursecode'], $input['coursename'], $input['progression'], $input['courseinfo']);
+                $response = $course->addCourse($coursecode, $coursename, $progression, $courseinfo);
             } else {
                 //http response
                 http_response_code(503);
